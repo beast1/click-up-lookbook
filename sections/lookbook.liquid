@@ -1,0 +1,101 @@
+<section class="lookbook" aria-labelledby="lookbook-title-{{ section.id }}">
+  <div class="container lookbook__container">
+    {% if section.settings.image %}
+      <button class="lookbook__preview" aria-haspopup="dialog" aria-controls="lookbook-popup-{{ section.id }}">
+        <img class="img-responsive lookbook__preview-img" src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.text | escape }}" width="848" height="1280">
+      </button>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <p id="lookbook-title-{{ section.id }}" class="lookbook__text">{{ section.settings.text }}</p>
+    {% endif %}
+  </div>
+</section>
+
+<div id="lookbook-popup-{{ section.id }}" class="lookbook-popup hidden" role="dialog" aria-modal="true" aria-labelledby="lookbook-title-{{ section.id }}">
+  <div class="lookbook-popup__overlay"></div>
+  <button class="lookbook-popup__close" aria-label="Close popup">Close popup</button>
+  <div class="lookbook-popup__content" role="dialog" aria-modal="true">
+    {% if section.settings.image %}
+      <div class="lookbook-popup__preview" role="button" tabindex="0" aria-label="Open product popup">
+        <img class="img-responsive" src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.text | escape }}" width="424" height="640">
+      </div>
+    {% endif %}
+    <section class="lookbook-popup__products" aria-label="Product list">
+      {% for product in section.settings.products %}
+        {% assign prod = product %}
+        {% if prod %}
+          <div class="lookbook-product" data-product-id="{{ prod.id }}" tabindex="0">
+            <div class="lookbook-product__preview">
+              <img src="{{ prod.featured_image | image_url: width: 400 }}" alt="{{ prod.title }}" class="img-responsive lookbook-product__preview-img" width="200" height="200">
+            </div>
+            <div class="lookbook-product__info">
+              <div class="lookbook-product__info-header">
+                <h3 class="lookbook-product__title">{{ prod.title }}</h3>
+                <p class="lookbook-product__price">
+                  {% if prod.compare_at_price_max > prod.price %}
+                    <span class="lookbook-product__price--sale">{{ prod.price | money }}</span>
+                    <span class="lookbook-product__price--compare">{{ prod.compare_at_price_max | money }}</span>
+                  {% else %}
+                    {{ prod.price | money }}
+                  {% endif %}
+                </p>
+              </div>
+
+              <small class="lookbook-product__descr">{{ prod.description | strip_html | truncate: 340 }}</small>
+              <div class="lookbook-product__controls">
+                {% if prod.variants.size > 1 %}
+                  <label for="variant-{{ prod.id }}" class="sr-only">Choose variant</label>
+                  <select id="variant-{{ prod.id }}" class="lookbook-product__variant">
+                    {% for variant in prod.variants %}
+                      <option value="{{ variant.id }}">{{ variant.title }}</option>
+                    {% endfor %}
+                  </select>
+                {% else %}
+                  <input type="hidden" class="lookbook-product__variant" value="{{ prod.variants.first.id }}">
+                  <span class="lookbook-product__one-size" aria-hidden="true">One<br>Size</span>
+                {% endif %}
+
+                <button class="button button--secondary lookbook-product__buy" aria-label="Add {{ prod.title }} to bag">Add to bag</button>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </section>
+  </div>
+</div>
+
+{{ 'lookbook.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'lookbook.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Lookbook Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Section text",
+      "default": "Напиши что-то сюда"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Section image"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products for popup",
+      "limit": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook"
+    }
+  ]
+}
+{% endschema %}

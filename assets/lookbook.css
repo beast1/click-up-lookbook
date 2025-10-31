@@ -1,0 +1,270 @@
+.img-responsive {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .header__icon .cart-count-bubble {
+    height: 1.7rem;
+  }
+
+  .lookbook__preview {
+    min-width: 320px;
+    padding: 0;
+    border: none;
+    margin: 0 auto;
+
+    background: transparent;
+  }
+
+  .lookbook__text {
+    max-width: 40%:
+    width: 100%;
+    margin: auto;
+    padding: 40px;
+  }
+
+  .lookbook-popup.hidden {
+    display: none;
+  }
+
+  .lookbook-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    overflow-y: auto;
+  }
+
+  .lookbook-popup__close {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 11;
+
+    width: 30px;
+    height: 30px;
+    border: none;
+
+    font-size: 0;
+    
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6);
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .lookbook-popup__close::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%:
+
+    display: block;
+    width: 15px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.6);
+
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .lookbook-popup__close::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%:
+
+    display: block;
+    width: 15px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.6);
+
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .lookbook-popup .lookbook-popup__overlay {
+    display: block;
+  }
+
+  .lookbook-popup__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .lookbook-popup__content {
+    position: relative;
+
+    max-width: 1180px;
+    padding: 2rem;
+    z-index: 10;
+    overflow-y: auto;
+    background: #fff;
+  }
+
+  .lookbook-popup__preview {
+    margin-bottom: 2rem;
+  }
+
+  .lookbook-popup__products {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lookbook-product + .lookbook-product {
+    margin-top: 40px;
+  }
+
+  .lookbook-product + .lookbook-product::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -21px;
+
+    display: block;
+    height: 2px;
+    background: #f1f1f1;
+  }
+
+  .lookbook-product {
+    position: relative;
+    background: #fff;
+    transition: transform 0.2s ease;
+  }
+
+  .lookbook-product__preview {
+    flex-shrink: 0;
+  }
+
+  .lookbook-product__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .lookbook-product__info-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+  }
+
+  .lookbook-product__title {
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .lookbook-product__price {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #444;
+    margin: 0;
+  }
+
+  .lookbook-product__descr {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: .5rem;
+  }
+
+  .lookbook-product__controls {
+    display: flex;
+    margin-top: 0.75rem;
+  }
+
+  .lookbook-product__variant {
+    padding: 0.2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .lookbook-product__one-size {
+    min-width: 62px;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 2.3rem;
+    text-align: center;
+  }
+
+  .lookbook-product__buy {
+    flex-grow: 2;
+    margin-left: 0.75rem;
+  }
+
+  @media (min-width: 540px) {
+    .lookbook-popup__preview {
+      max-width: 540px;
+      margin: 0 auto 2rem;
+    }
+
+    .lookbook-product__preview {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .lookbook__container {
+      display: flex;
+    }
+
+    
+    .lookbook__preview {
+      width: 50%;
+    }
+  }
+
+  @media (min-width: 940px) {
+    .lookbook-popup {
+      padding-bottom: 5vh;
+    }
+
+    .lookbook-popup__content {
+      display: flex;
+      margin: 5vh auto;
+      margin-bottom: 0;
+    }
+
+    .lookbook-popup__preview {
+      flex-shrink: 0;
+      min-width: 300px;
+      margin-bottom: 0;
+      margin-right: 2rem;
+    }   
+
+    .lookbook-product {
+      display: flex;
+    }
+
+    .lookbook-product__preview {
+      width: 200px;
+    } 
+
+    .lookbook__preview {
+      flex-shrink: 0;
+    }
+  }
+
+  /* Utility for screen readers */
+  .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+  }
